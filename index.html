@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Aplikasi sederhana untuk mengelola tugas kuliah mahasiswa.">
+  <title>TaskMahasiswa — Manajemen Tugas Kuliah</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">TM</span><div><strong>TaskMahasiswa</strong><small>Ruang rapi untuk tugas kuliahmu</small></div></div>
+    <span class="local-label"><span class="dot"></span> Tersimpan di perangkat ini</span>
+  </header>
+  <main class="container">
+    <section class="hero">
+      <div><p class="eyebrow">DASHBOARD MAHASISWA</p><h1>Atur tugasmu.<br><span>Jalani kuliah dengan tenang.</span></h1>
+      <p class="hero-copy">Catat tugas, pantau tenggat waktu, dan tandai pekerjaan yang sudah selesai dalam satu tempat.</p></div>
+      <div class="hero-art" aria-hidden="true"><div class="art-card"><span>✓</span><b>Stay on track</b><small>Satu langkah setiap hari.</small></div><div class="art-circle"></div></div>
+    </section>
+    <section class="stats" aria-label="Ringkasan tugas">
+      <article class="stat"><span>Total tugas</span><strong id="totalCount">0</strong><small>Semua tugas tercatat</small></article>
+      <article class="stat"><span>Belum selesai</span><strong id="pendingCount">0</strong><small>Masih perlu dikerjakan</small></article>
+      <article class="stat"><span>Selesai</span><strong id="doneCount">0</strong><small>Kerja bagus!</small></article>
+    </section>
+    <section class="workspace">
+      <section class="panel form-panel">
+        <div class="section-heading"><div><p class="eyebrow">CATATAN BARU</p><h2 id="formTitle">Tambah tugas</h2></div><span class="plus-icon">＋</span></div>
+        <form id="taskForm">
+          <label for="taskName">Nama tugas</label><input id="taskName" name="taskName" maxlength="100" placeholder="Contoh: Laporan praktikum PABWE" required>
+          <label for="course">Mata kuliah</label><input id="course" name="course" maxlength="80" placeholder="Contoh: PABWE" required>
+          <div class="form-row"><div><label for="dueDate">Tenggat waktu</label><input id="dueDate" name="dueDate" type="date" required></div>
+          <div><label for="priority">Prioritas</label><select id="priority" name="priority"><option value="Sedang">Sedang</option><option value="Tinggi">Tinggi</option><option value="Rendah">Rendah</option></select></div></div>
+          <label for="notes">Catatan (opsional)</label><textarea id="notes" name="notes" rows="3" maxlength="300" placeholder="Detail singkat tentang tugas..."></textarea>
+          <div class="form-actions"><button class="button primary" type="submit" id="submitButton">＋ Simpan tugas</button><button class="button secondary hidden" type="button" id="cancelEdit">Batal</button></div>
+        </form>
+        <p class="privacy-note">ℹ️ Data disimpan di browser menggunakan localStorage, bukan dikirim ke server.</p>
+      </section>
+      <section class="panel list-panel">
+        <div class="section-heading list-heading"><div><p class="eyebrow">DAFTAR PEKERJAAN</p><h2>Tugas kuliahmu</h2></div><span class="task-total" id="visibleCount">0 tugas</span></div>
+        <div class="toolbar"><input id="searchInput" type="search" placeholder="Cari nama tugas atau mata kuliah..." aria-label="Cari tugas">
+          <select id="filterStatus" aria-label="Filter status"><option value="Semua">Semua status</option><option value="Belum selesai">Belum selesai</option><option value="Selesai">Selesai</option></select>
+          <select id="sortBy" aria-label="Urutkan tugas"><option value="due">Tenggat terdekat</option><option value="priority">Prioritas</option><option value="newest">Terbaru ditambahkan</option></select></div>
+        <div id="taskList" class="task-list" aria-live="polite"></div>
+        <div id="emptyState" class="empty-state"><div class="empty-icon">✦</div><h3>Belum ada tugas di sini</h3><p>Tambahkan tugas pertamamu melalui formulir di sebelah kiri.</p></div>
+      </section>
+    </section>
+    <footer>TaskMahasiswa · Proyek pembelajaran PABWE · HTML, CSS, JavaScript</footer>
+  </main>
+  <dialog id="deleteDialog" class="dialog"><form method="dialog"><h3>Hapus tugas ini?</h3><p>Tugas yang dihapus tidak dapat dipulihkan.</p><div class="form-actions"><button class="button secondary" value="cancel">Batal</button><button class="button danger" id="confirmDelete" value="confirm">Hapus tugas</button></div></form></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
